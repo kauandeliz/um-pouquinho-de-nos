@@ -224,4 +224,3 @@ document.querySelector("#startButton").addEventListener("click", async () => {
   await startMusic();
   document.querySelector(".memory-slide").scrollIntoView({ behavior:"smooth" });
 });
-document.querySelector("#restartButton").addEventListener("click", () => carousel.firstElementChild.scrollIntoView({ behavior:"smooth" }));
