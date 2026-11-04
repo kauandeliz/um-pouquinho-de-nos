@@ -19,6 +19,7 @@ const videoIndexes = new Set([0,1,2,8,9,10,11,12,13,16,33,34,42,48]);
 const carousel = document.querySelector("#carousel");
 const container = document.querySelector("#memorySlides");
 const counter = document.querySelector("#counter");
+const dotNav = document.querySelector("#dotNav");
 
 function mediaPath(index) {
   const extension = videoIndexes.has(index) ? "mp4" : "jpg";
@@ -82,6 +83,28 @@ phrases.forEach((text, index) => {
   });
 });
 
+function updateDots(current) {
+  const radius = 4;
+  const start = Math.max(0, Math.min(current - radius, phrases.length - (radius * 2 + 1)));
+  const end = Math.min(phrases.length, start + radius * 2 + 1);
+  dotNav.replaceChildren();
+  for (let index = start; index < end; index += 1) {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "dot";
+    dot.setAttribute("aria-label", `Ir para lembrança ${index + 1}`);
+    if (index === current) {
+      dot.classList.add("active");
+      dot.setAttribute("aria-current", "true");
+    } else if (Math.abs(index - current) <= 2) {
+      dot.classList.add("near");
+    }
+    if ((index === start && start > 0) || (index === end - 1 && end < phrases.length)) dot.classList.add("edge");
+    dot.addEventListener("click", () => document.querySelector(`.memory-slide[data-index="${index}"]`).scrollIntoView({ behavior:"smooth" }));
+    dotNav.append(dot);
+  }
+}
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (!entry.isIntersecting || entry.intersectionRatio < .7) return;
@@ -90,6 +113,12 @@ const observer = new IntersectionObserver(entries => {
     });
     const index = Number(entry.target.dataset.index);
     counter.textContent = Number.isInteger(index) ? `${String(index + 1).padStart(2,"0")} / ${phrases.length}` : entry.target.classList.contains("ending-slide") ? `♡ / ${phrases.length}` : `00 / ${phrases.length}`;
+    if (Number.isInteger(index)) {
+      dotNav.hidden = false;
+      updateDots(index);
+    } else {
+      dotNav.hidden = true;
+    }
   });
 }, { root:carousel, threshold:[.7] });
 
