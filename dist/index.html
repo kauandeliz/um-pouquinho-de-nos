@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f3e9dc">
+  <meta name="description" content="Um pouquinho da nossa história, guardado com carinho.">
+  <title>Um pouquinho de nós pra você lembrar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="paper-noise" aria-hidden="true"></div>
+
+  <main>
+    <section class="cover" id="cover" aria-labelledby="main-title">
+      <p class="eyebrow">uma lembrança de cada vez</p>
+      <h1 id="main-title">um pouquinho de nós<br><em>pra você lembrar</em></h1>
+      <p class="intro">Fiz esse cantinho pra guardar alguns dos momentos que fizeram — e ainda fazem — a nossa história tão bonita.</p>
+      <button class="primary-button" id="startButton" type="button">
+        <span>começar nossa história</span>
+        <span aria-hidden="true">→</span>
+      </button>
+      <p class="hint">com carinho, pra você ♡</p>
+    </section>
+
+    <section class="story" id="story" hidden aria-live="polite">
+      <header class="story-header">
+        <button class="wordmark" id="homeButton" type="button" aria-label="Voltar ao início">nós dois ♡</button>
+        <div class="counter"><span id="currentNumber">01</span><span class="counter-line"></span><span id="totalNumber">49</span></div>
+      </header>
+
+      <div class="progress" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+
+      <div class="stage" id="stage">
+        <article class="phrase-card" id="phraseCard">
+          <span class="chapter" id="chapter">lembrança 01</span>
+          <p id="phrase"></p>
+          <button class="reveal-button" id="revealButton" type="button">
+            <span>toca aqui pra ver</span>
+            <span class="heart" aria-hidden="true">♡</span>
+          </button>
+        </article>
+
+        <article class="memory-card" id="memoryCard" hidden>
+          <div class="media-frame" id="mediaFrame"></div>
+          <p class="media-caption" id="mediaCaption"></p>
+          <div class="memory-actions">
+            <button class="text-button" id="backButton" type="button">← voltar</button>
+            <button class="next-button" id="nextButton" type="button"><span>próxima</span><span aria-hidden="true">→</span></button>
+          </div>
+        </article>
+      </div>
+
+      <nav class="quick-nav" aria-label="Navegação entre lembranças">
+        <button id="previousMoment" type="button" aria-label="Lembrança anterior">←</button>
+        <span>nossa linha do tempo</span>
+        <button id="nextMoment" type="button" aria-label="Próxima lembrança">→</button>
+      </nav>
+    </section>
+
+    <section class="ending" id="ending" hidden>
+      <p class="eyebrow">e isso é só um pouquinho…</p>
+      <h2>A melhor parte de todas<br><em>é continuar vivendo nós.</em></h2>
+      <p>Obrigada por cada risada, cada passeio, cada carinho e até pelos dias comuns — porque com você eles nunca são só comuns.</p>
+      <div class="ending-heart" aria-hidden="true">♡</div>
+      <button class="primary-button" id="restartButton" type="button"><span>ver tudo de novo</span><span aria-hidden="true">↺</span></button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
