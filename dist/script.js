@@ -1,26 +1,54 @@
-const phrases = [
-  "Foi assim, aos pouquinhos, que a vida começou a ficar mais bonita.", "Com você, até olhar a cidade vira um momento que eu quero guardar.", "Tem carinho que cabe num beijo — e diz tudo sem precisar falar.", "Os nossos encontros sempre tiveram um sabor só nosso.", "Entre luzes baixas e conversas longas, eu fui escolhendo você.",
-  "Até a tela fica mais bonita quando a gente assiste juntinho.", "A nossa história também mora nesses programas simples que viraram especiais.", "Café da manhã, passeio e você: uma combinação que nunca erra.", "Em cada lugar novo, meu lugar favorito continuou sendo do seu lado.", "Tem amor até no jeito que a gente divide o mesmo cantinho.",
-  "A gente sabe transformar qualquer plano numa memória boa.", "E sabe também que felicidade, às vezes, é só ficar pertinho.", "Você faz até os dias comuns parecerem cena de filme.", "Nosso amor cabe num pôr do sol, num brinde e em infinitos detalhes.", "Eu guardo com carinho cada tarde que o tempo deixou só pra nós.",
-  "Porque dividir o lanche sempre foi uma das nossas linguagens do amor.", "As melhores risadas sempre aparecem quando você está por perto.", "Se eu pudesse escolher de novo, ainda escolheria esse sorriso.", "Um brinde a tudo que já fomos — e a tudo que ainda vamos ser.", "A gente colecionou lugares, sabores e um montão de histórias.",
-  "E, claro, nenhuma história nossa estaria completa sem comida boa.", "Tem gestos pequenos que fazem o coração inteiro se sentir cuidado.", "Até nos momentos mais quietinhos, eu sinto o quanto a gente é nós.", "Seu jeitinho sempre encontra um jeito de me fazer sorrir.", "Amar você também é amar as nossas preguiças compartilhadas.",
-  "E entrar um pouquinho nos mundos que você ama.", "Cada presente carrega um pedacinho da atenção que existe entre nós.", "Você e os bichinhos: uma das minhas cenas favoritas.", "Tem declaração que chega baixinho e fica ecoando pra sempre.", "Até o jantar mais simples vira lembrança quando é nosso.",
-  "Gosto de como a gente se conhece nos mínimos detalhes.", "E de como você sempre dá um jeito de estar comigo.", "Nossas rotinas ganharam um tipo de aconchego que eu não sabia que precisava.", "O amor mora muito nesses instantes sem pose e sem pressa.", "No seu colo, o mundo parece desacelerar.",
-  "Mesmo no frio, estar com você sempre deixa tudo mais quentinho.", "A gente foi criando tradições sem nem perceber.", "E juntando momentos que hoje parecem pequenos tesouros.", "Um beijo seu ainda consegue fazer o resto do mundo desaparecer.", "Você conhece as coisinhas que fazem meus olhos brilharem.",
-  "E faz até um dia de descanso virar uma memória cheia de afeto.", "Há tantos pedacinhos nossos que eu queria poder guardar num potinho.", "Essa foto diz baixinho aquilo que meu coração sempre soube.", "Nossos brindes sempre celebraram muito mais do que estava na mesa.", "O cuidado também aparece nos presentes mais inesperados.",
-  "Com você, cada caminho novo parece uma pequena aventura.", "Seja onde for, é ao seu lado que eu me sinto em casa.", "Até quem faz parte da nossa vida deixa tudo mais fofo.", "E no fim de cada lembrança, ainda somos nós — escolhendo ficar juntinhos."
+const memories = [
+  {memory:6,date:"13 de fev",text:"Um dos nossos primeiros encontros depois da noite do Galeria. Lembro de estarmos muito bêbados no final da noite. Meu drink favorito é Campari porque me lembra você."},
+  {memory:1,date:"17 de fev",text:"Me lembro de ter ficado triste por ainda não ter a aliança nesse dia, kkkkk. Fiquei com vergonha de ter que dividir a conta contigo por causa do valor."},
+  {memory:2,date:"17 de fev",text:"Ainda no KSA — a melhor pizza que comi na vida."},
+  {memory:3,date:"7 de março",text:"Planejei essa surpresa por dias. Estava muito ansioso para pedir você em namoro, mesmo sabendo que você aceitaria. Acho que consegui manter a surpresa."},
+  {memory:4,date:"7 de março",text:"Sempre disse que amo o seu cheiro, né?"},
+  {memory:5,date:"7 de março",text:"Ficamos engraçados nessa foto. Tô com saudades."},
+  {memory:11,date:"8 de março",text:"Nós bem fofos combinandinho."},
+  {memory:7,date:"2 de abril",text:"Recém-namorados, uhull! Lembro que fiquei muito feliz em poder dizer pra todo mundo que estava namorando você. Precisamos terminar de ver Nana."},
+  {memory:8,date:"2 de abril",text:"Você sempre acerta nos presentes. Ninguém nunca prestou tanta atenção em mim."},
+  {memory:9,date:"4 de abril",text:"Os dois amores da minha vida."},
+  {memory:10,date:"5 de abril",text:"Muito chocolate na Páscoa, quando você ainda não tinha intolerância à lactose. Droga, o destino não deixou eu te mimar com chocolates pra sempre :("},
+  {memory:15,date:"8 de abril",text:"Você sabe mesmo os meus gostos."},
+  {memory:12,date:"19 de abril",text:"Chaveirinhos de Pokémon combinando."},
+  {memory:13,date:"10 de maio",text:"Lembro que você ficou superfeliz quando coloquei sua foto na minha carteira. Pena que você perderia esse relicário alguns dias depois, kkkkk."},
+  {memory:14,date:"10 de maio",text:"Noites perfeitas."},
+  {memory:20,date:"11 de maio",text:"Idas e vindas para poder te ver. A parte favorita da minha vida ligada a rodoviárias, kkkkk."},
+  {memory:36,date:"11 de maio",text:"Você sempre foi o meu lar."},
+  {memory:37,date:"11 de maio",text:"Durmo muito fácil quando estou com você."},
+  {memory:17,date:"5 de junho",text:"Que saudadessssss!"},
+  {memory:18,date:"5 de junho",text:"Melhor café de Lages, disparado. Pegamos muita chuva nesse dia."},
+  {memory:21,date:"6 de junho",text:"Tivemos que comemorar o Dia dos Namorados uma semana antes, kkkkk. Fiquei muito feliz em ver sua reação depois do presente que te dei. A propósito, preciso colocar perfume no cavalo-marinho de novo."},
+  {memory:19,date:"7 de junho",text:"Amei o presente de Dia dos Namorados. Inclusive, tenho o Lego do Homem-Aranha até hoje no meu guarda-roupa."},
+  {memory:38,date:"12 de junho",text:"Fofos. Dizem que a gente combina muito."},
+  {memory:16,date:"4 de julho",text:"Você me apresentando o seu mundinho. Amo ver coisas novas com você."},
+  {memory:22,date:"7 de julho",text:"De pijaminhas combinando e assistindo anime juntinhos. Meu tipo favorito de noite com você."},
+  {memory:27,date:"8 de julho",text:"Passeamos muito. Lembro que fugi do meu emprego e passei as férias de julho em Lages. Amei cada segundo."},
+  {memory:23,date:"18 de julho",text:"O melhor presente de aniversário que já ganhei. Acho que foi a primeira vez que você me viu chorando; voltei a ser criança naquela noite."},
+  {memory:24,date:"3 de agosto",text:"Saudades desse dia. Chegamos exaustos em casa."},
+  {memory:25,date:"3 de agosto",text:"Amo você, gatinha."},
+  {memory:26,date:"3 de agosto",text:"Quando o Serkan finalmente se acostumou comigo. Antes, eu tinha medo de ele me morder, kkkkk."},
+  {memory:39,date:"3 de agosto",text:"Minha melhor companhia."},
+  {memory:40,date:"4 de setembro",text:"Primeira vez que você veio para Curitiba. Fiquei tão feliz e fiz de tudo para que fosse a melhor experiência que você poderia ter. Uma pena ter chovido o tempo todo, kkkkk."},
+  {memory:41,date:"4 de setembro",text:"A melhor vista que eu poderia ter é você. Sempre foi você."},
+  {memory:42,date:"4 de setembro",text:"Nossa, como a gente se divertiu essa noite. Saudades de você, minha princesa."},
+  {memory:28,date:"5 de setembro",text:"Lugar bonito. Pena que estávamos cansadinhos e voltamos muito cedo pra casa, kkkkk."},
+  {memory:30,date:"5 de setembro",text:"Café da manhã pós-chuva, kkkkk. Nunca vi chover tanto em uma cidade."},
+  {memory:29,date:"6 de setembro",text:"Nossa primeira vez no cinema. Até que demoramos muito, kkkkk."},
+  {memory:32,date:"8 de setembro",text:"Amei os dias em que você esteve aqui comigo. Você me faz muito feliz."},
+  {memory:31,date:"10 de setembro",text:"Mais café e chuva. Sem querer dizer nada, mas muito melhor que o Starbucks. Amei o seu bolo de amêndoas."},
+  {memory:43,date:"10 de setembro",text:"Matando aula para tomar um cafezinho. Nossos melhores dates."},
+  {memory:44,date:"12 de setembro",text:"Acho que nossas almas combinam também."},
+  {memory:45,date:"12 de setembro",text:"Programas caseiros também são ótimos com você. E, modéstia à parte, eu cozinho bem, kkkkk."},
+  {memory:46,date:"14 de setembro",text:"Bobocas."},
+  {memory:33,date:"18 de outubro",text:"O tão sonhado piquenique virou realidade."},
+  {memory:34,date:"18 de outubro",text:"O tão sonhado piquenique virou realidade."},
+  {memory:35,date:"18 de outubro",text:"Te amo."},
+  {memory:47,date:"18 de outubro",text:"O tão sonhado piquenique virou realidade."},
+  {memory:48,date:"18 de outubro",text:"Lutando pela democracia. Você me fez tomar uma posição na marra, kkkkk."},
+  {memory:49,date:"18 de outubro",text:""}
 ];
-
-const captions = [
-  "o começo de tantos momentos", "a vista e a melhor companhia", "um carinho guardado", "um dos nossos sabores", "noite nossa", "nosso cinema", "programinha perfeito", "manhã com você", "sempre lado a lado", "aconchego", "do nosso jeitinho", "pertinho é melhor", "nós em movimento", "pôr do sol nosso", "tarde boa", "dividindo tudo", "risadas que ficam", "meu sorriso favorito", "a nós", "colecionando momentos", "mais uma mesa, mais uma memória", "cuidado em detalhes", "só nós dois", "seu jeitinho", "preguiça boa", "um pouquinho do seu mundo", "carinho que vira presente", "fofura em dobro", "te amo", "jantar nosso", "detalhes que dizem muito", "você sempre comigo", "rotina com afeto", "sem pose, só amor", "meu lugar de paz", "quentinho por dentro", "uma tradição nossa", "tesouros nossos", "um beijo e nada mais", "você me conhece", "descansar com você", "tantos pedacinhos", "uma certeza bonita", "celebrando a gente", "feito com carinho", "aventuras com você", "meu lugar é aqui", "parte da nossa história", "sempre nós"
-];
-
-// Ordem visual do ZIP, de cima para baixo. Os índices apontam para a
-// posição original de cada mídia para manter sua frase e legenda juntas.
-const zipOrder = [19,20,21,22,23,18,25,26,27,28,24,30,31,32,29,36,37,38,39,35,41,40,44,45,46,47,43,4,5,3,7,6,15,14,17,33,34,42,48,0,1,2,8,9,10,11,13,12,16];
-const orderedPhrases = zipOrder.map(index => phrases[index]);
-const orderedCaptions = zipOrder.map(index => captions[index]);
-const videoIndexes = new Set([35,36,37,38,39,40,41,42,43,44,45,46,47,48]);
 const carousel = document.querySelector("#carousel");
 const container = document.querySelector("#memorySlides");
 const counter = document.querySelector("#counter");
@@ -33,23 +61,24 @@ let activeMemory = 0;
 
 function memoryContent(index) {
   return {
-    date: savedContent[index]?.date || "",
-    text: savedContent[index]?.text || orderedPhrases[index]
+    date: savedContent[index]?.date || memories[index].date,
+    text: savedContent[index]?.text ?? memories[index].text
   };
 }
 
 function mediaPath(index) {
-  const extension = videoIndexes.has(index) ? "mp4" : "jpg";
-  return `media/momento-${String(index + 1).padStart(2, "0")}.${extension}`;
+  const original = memories[index].memory;
+  const extension = original >= 36 ? "mp4" : "jpg";
+  return `media/momento-${String(original).padStart(2, "0")}.${extension}`;
 }
 
-orderedPhrases.forEach((text, index) => {
+memories.forEach((memory, index) => {
   const content = memoryContent(index);
   const mediaSlide = document.createElement("section");
   mediaSlide.className = "slide memory-slide photo-slide";
   mediaSlide.dataset.panel = index;
   mediaSlide.dataset.memory = index;
-  mediaSlide.dataset.kind = videoIndexes.has(index) ? "vídeo" : "foto";
+  mediaSlide.dataset.kind = memory.memory >= 36 ? "vídeo" : "foto";
   mediaSlide.innerHTML = `
     <div class="memory-shell">
       <div class="media-view">
@@ -58,7 +87,7 @@ orderedPhrases.forEach((text, index) => {
         <div class="caption-row">
           <div class="caption-copy">
             <time class="caption-date">uma data especial</time>
-            <p class="caption caption-text">${text}</p>
+            <p class="caption caption-text"></p>
           </div>
         </div>
       </div>
@@ -67,7 +96,7 @@ orderedPhrases.forEach((text, index) => {
   mediaSlide.querySelector(".caption-date").textContent = content.date || "uma data especial";
   mediaSlide.querySelector(".caption-text").textContent = content.text;
 
-  const media = document.createElement(videoIndexes.has(index) ? "video" : "img");
+  const media = document.createElement(memory.memory >= 36 ? "video" : "img");
   media.src = mediaPath(index);
   if (media.tagName === "VIDEO") {
     media.controls = true;
@@ -104,14 +133,14 @@ document.querySelector("#editCurrent").addEventListener("click", () => {
 
 document.querySelector("#saveMemory").addEventListener("click", event => {
   event.preventDefault();
-  savedContent[activeMemory] = { date: dateInput.value.trim(), text: textInput.value.trim() || orderedPhrases[activeMemory] };
+  savedContent[activeMemory] = { date: dateInput.value.trim(), text: textInput.value.trim() };
   localStorage.setItem(storageKey, JSON.stringify(savedContent));
   refreshMemory(activeMemory);
   memoryEditor.close();
 });
 
 document.querySelector("#exportContent").addEventListener("click", () => {
-  const complete = orderedPhrases.map((_, index) => ({ memory: index + 1, ...memoryContent(index) }));
+  const complete = memories.map((memory, index) => ({ memory: memory.memory, ...memoryContent(index) }));
   const blob = new Blob([JSON.stringify(complete, null, 2)], { type:"application/json" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
@@ -122,7 +151,7 @@ document.querySelector("#exportContent").addEventListener("click", () => {
 
 function updateDots(current) {
   const radius = 4;
-  const panelCount = orderedPhrases.length;
+  const panelCount = memories.length;
   const start = Math.max(0, Math.min(current - radius, panelCount - (radius * 2 + 1)));
   const end = Math.min(panelCount, start + radius * 2 + 1);
   dotNav.replaceChildren();
@@ -153,7 +182,7 @@ const observer = new IntersectionObserver(entries => {
     const panel = Number(entry.target.dataset.panel);
     const memory = Number(entry.target.dataset.memory);
     if (Number.isInteger(memory)) activeMemory = memory;
-    counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} / ${orderedPhrases.length}` : entry.target.classList.contains("ending-slide") ? `♡ / ${orderedPhrases.length}` : `00 / ${orderedPhrases.length}`;
+    counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} / ${memories.length}` : entry.target.classList.contains("ending-slide") ? `♡ / ${memories.length}` : `00 / ${memories.length}`;
     if (Number.isInteger(panel)) {
       dotNav.hidden = false;
       updateDots(panel);
