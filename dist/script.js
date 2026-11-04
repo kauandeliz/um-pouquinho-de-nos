@@ -42,7 +42,7 @@ phrases.forEach((text, index) => {
         </div>
         <div class="caption-row">
           <p class="caption">${captions[index]}</p>
-          <button class="next-arrow" type="button" aria-label="Próxima lembrança">↑</button>
+          <button class="next-arrow" type="button" aria-label="Próxima lembrança">→</button>
         </div>
       </div>
     </div>`;
