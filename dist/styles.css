@@ -87,3 +87,28 @@ h2 { font-size:clamp(1.7rem,7.5vw,3.6rem); line-height:1.4; text-shadow:4px 4px 
 .dot.active { width:11px; height:11px; background:var(--yellow); box-shadow:2px 2px 0 #6c5100; transform:translateY(-1px); }
 .dot.edge { width:4px; height:4px; opacity:.65; }
 @media (max-width:380px) { .phrase { font-size:1rem; } .prompt { padding:20px 14px; } .intro { font-size:.56rem; } }
+
+/* Clear sky revision */
+:root { --blue:#76bdf0; --blue-2:#4b9ddd; --yellow:#ffe267; --white:#fff; --soft:#fff; }
+html,body { background:#76bdf0; color:#fff; }
+.stars,.stars::before,.stars::after {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='520' viewBox='0 0 320 520'%3E%3Cg fill='%23ffe267'%3E%3Crect x='28' y='42' width='5' height='15'/%3E%3Crect x='23' y='47' width='15' height='5'/%3E%3Crect x='215' y='74' width='8' height='32'/%3E%3Crect x='203' y='86' width='32' height='8'/%3E%3Crect x='145' y='221' width='4' height='12'/%3E%3Crect x='141' y='225' width='12' height='4'/%3E%3Crect x='271' y='314' width='6' height='22'/%3E%3Crect x='263' y='322' width='22' height='6'/%3E%3Crect x='68' y='408' width='9' height='34'/%3E%3Crect x='56' y='420' width='34' height='9'/%3E%3C/g%3E%3Cg fill='%23ffffff' opacity='.9'%3E%3Crect x='258' y='178' width='4' height='12'/%3E%3Crect x='254' y='182' width='12' height='4'/%3E%3Crect x='112' y='112' width='6' height='20'/%3E%3Crect x='105' y='119' width='20' height='6'/%3E%3Crect x='178' y='374' width='5' height='15'/%3E%3Crect x='173' y='379' width='15' height='5'/%3E%3C/svg%3E");
+  background-size:320px 520px;
+  background-position:0 0;
+  opacity:1;
+  transform:none;
+}
+.stars::before { background-position:160px 260px; opacity:.45; }
+.stars::after { display:none; }
+.pixel-cloud { display:none; }
+.slide::after { background:linear-gradient(180deg,rgba(118,189,240,.18),rgba(67,151,216,.18)); }
+h1,h2,h1 em,h2 em,.phrase,.eyebrow,.prompt .number,.continue-hint,.caption,.topbar,.swipe-hint { color:#fff; }
+h1,h2,.phrase,.eyebrow,.topbar,.swipe-hint { text-shadow:3px 3px 0 rgba(21,75,132,.72); }
+.tiny-star { color:#fff; text-shadow:3px 3px 0 rgba(21,75,132,.55); }
+.intro,.ending-content>p:not(.eyebrow),.prompt,.caption-row { color:#fff; background:rgba(30,94,164,.78); border-color:#fff; box-shadow:0 0 0 4px #286fab,8px 8px 0 rgba(25,72,125,.45); }
+.start-button,.reveal,.next-arrow,.tap-again { background:#2878bd; color:#fff; border-color:#fff; box-shadow:0 0 0 3px #15538d,5px 5px 0 rgba(25,72,125,.5); }
+.continue-hint { text-shadow:2px 2px 0 #286fab; }
+.dot-nav { background:rgba(30,94,164,.7); border-color:rgba(255,255,255,.8); }
+.dot { background:rgba(255,255,255,.5); }
+.dot.near { background:#fff; }
+.dot.active { background:var(--yellow); }
