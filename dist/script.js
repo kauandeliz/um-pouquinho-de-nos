@@ -27,19 +27,29 @@ function mediaPath(index) {
 }
 
 phrases.forEach((text, index) => {
-  const slide = document.createElement("section");
-  slide.className = "slide memory-slide";
-  slide.dataset.index = index;
-  slide.innerHTML = `
+  const phraseSlide = document.createElement("section");
+  phraseSlide.className = "slide memory-slide phrase-slide";
+  phraseSlide.dataset.panel = index * 2;
+  phraseSlide.dataset.memory = index;
+  phraseSlide.dataset.kind = "frase";
+  phraseSlide.innerHTML = `
     <div class="memory-shell">
       <div class="prompt">
         <span class="number">lembrança ${String(index + 1).padStart(2, "0")}</span>
         <p class="phrase">${text}</p>
-        <button class="reveal" type="button">toca aqui pra ver <span>✦</span></button>
+        <p class="continue-hint">arraste para ver <span>→</span></p>
       </div>
-      <div class="media-view" hidden>
+    </div>`;
+
+  const mediaSlide = document.createElement("section");
+  mediaSlide.className = "slide memory-slide photo-slide";
+  mediaSlide.dataset.panel = index * 2 + 1;
+  mediaSlide.dataset.memory = index;
+  mediaSlide.dataset.kind = videoIndexes.has(index) ? "vídeo" : "foto";
+  mediaSlide.innerHTML = `
+    <div class="memory-shell">
+      <div class="media-view">
         <div class="media-box">
-          <button class="tap-again" type="button" aria-label="Voltar para a frase">↶</button>
         </div>
         <div class="caption-row">
           <p class="caption">${captions[index]}</p>
@@ -47,60 +57,48 @@ phrases.forEach((text, index) => {
         </div>
       </div>
     </div>`;
-  container.append(slide);
+  container.append(phraseSlide, mediaSlide);
 
-  const prompt = slide.querySelector(".prompt");
-  const view = slide.querySelector(".media-view");
-  const mediaBox = slide.querySelector(".media-box");
+  const media = document.createElement(videoIndexes.has(index) ? "video" : "img");
+  media.src = mediaPath(index);
+  if (media.tagName === "VIDEO") {
+    media.controls = true;
+    media.playsInline = true;
+    media.preload = "metadata";
+    media.setAttribute("aria-label", `Vídeo da lembrança ${index + 1}`);
+  } else {
+    media.alt = `Nossa lembrança ${index + 1}`;
+    media.loading = "lazy";
+  }
+  mediaSlide.querySelector(".media-box").append(media);
 
-  slide.querySelector(".reveal").addEventListener("click", () => {
-    if (!mediaBox.querySelector("img, video")) {
-      const media = document.createElement(videoIndexes.has(index) ? "video" : "img");
-      media.src = mediaPath(index);
-      if (media.tagName === "VIDEO") {
-        media.controls = true;
-        media.playsInline = true;
-        media.preload = "metadata";
-        media.setAttribute("aria-label", `Vídeo da lembrança ${index + 1}`);
-      } else {
-        media.alt = `Nossa lembrança ${index + 1}`;
-      }
-      mediaBox.append(media);
-    }
-    prompt.hidden = true;
-    view.hidden = false;
-  });
-
-  slide.querySelector(".tap-again").addEventListener("click", () => {
-    mediaBox.querySelector("video")?.pause();
-    view.hidden = true;
-    prompt.hidden = false;
-  });
-
-  slide.querySelector(".next-arrow").addEventListener("click", () => {
-    mediaBox.querySelector("video")?.pause();
-    (slide.nextElementSibling || document.querySelector("#ending")).scrollIntoView({ behavior:"smooth" });
+  mediaSlide.querySelector(".next-arrow").addEventListener("click", () => {
+    mediaSlide.querySelector("video")?.pause();
+    (mediaSlide.nextElementSibling || document.querySelector("#ending")).scrollIntoView({ behavior:"smooth" });
   });
 });
 
 function updateDots(current) {
   const radius = 4;
-  const start = Math.max(0, Math.min(current - radius, phrases.length - (radius * 2 + 1)));
-  const end = Math.min(phrases.length, start + radius * 2 + 1);
+  const panelCount = phrases.length * 2;
+  const start = Math.max(0, Math.min(current - radius, panelCount - (radius * 2 + 1)));
+  const end = Math.min(panelCount, start + radius * 2 + 1);
   dotNav.replaceChildren();
   for (let index = start; index < end; index += 1) {
     const dot = document.createElement("button");
     dot.type = "button";
     dot.className = "dot";
-    dot.setAttribute("aria-label", `Ir para lembrança ${index + 1}`);
+    const memory = Math.floor(index / 2) + 1;
+    const kind = index % 2 === 0 ? "frase" : "mídia";
+    dot.setAttribute("aria-label", `Ir para ${kind} da lembrança ${memory}`);
     if (index === current) {
       dot.classList.add("active");
       dot.setAttribute("aria-current", "true");
     } else if (Math.abs(index - current) <= 2) {
       dot.classList.add("near");
     }
-    if ((index === start && start > 0) || (index === end - 1 && end < phrases.length)) dot.classList.add("edge");
-    dot.addEventListener("click", () => document.querySelector(`.memory-slide[data-index="${index}"]`).scrollIntoView({ behavior:"smooth" }));
+    if ((index === start && start > 0) || (index === end - 1 && end < panelCount)) dot.classList.add("edge");
+    dot.addEventListener("click", () => document.querySelector(`.memory-slide[data-panel="${index}"]`).scrollIntoView({ behavior:"smooth" }));
     dotNav.append(dot);
   }
 }
@@ -111,11 +109,12 @@ const observer = new IntersectionObserver(entries => {
     document.querySelectorAll("video").forEach(video => {
       if (!entry.target.contains(video)) video.pause();
     });
-    const index = Number(entry.target.dataset.index);
-    counter.textContent = Number.isInteger(index) ? `${String(index + 1).padStart(2,"0")} / ${phrases.length}` : entry.target.classList.contains("ending-slide") ? `♡ / ${phrases.length}` : `00 / ${phrases.length}`;
-    if (Number.isInteger(index)) {
+    const panel = Number(entry.target.dataset.panel);
+    const memory = Number(entry.target.dataset.memory);
+    counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} • ${entry.target.dataset.kind}` : entry.target.classList.contains("ending-slide") ? `♡ / ${phrases.length}` : `00 / ${phrases.length}`;
+    if (Number.isInteger(panel)) {
       dotNav.hidden = false;
-      updateDots(index);
+      updateDots(panel);
     } else {
       dotNav.hidden = true;
     }
