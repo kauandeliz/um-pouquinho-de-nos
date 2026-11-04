@@ -1,10 +1,10 @@
 # Música de fundo
 
-O site procura o arquivo abaixo:
+O site usa o arquivo abaixo:
 
-`dist/assets/sparks-instrumental.mp3`
+`dist/assets/background-track.mp3`
 
-Use apenas um arquivo que você tenha autorização para publicar. Depois que o arquivo for adicionado, a música:
+O arquivo atual foi fornecido pelo usuário. A música:
 
 - começa no primeiro toque em “começar nossa história”;
 - toca em volume baixo;
