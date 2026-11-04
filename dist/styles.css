@@ -43,6 +43,18 @@ h1 em,h2 em { color:var(--yellow); font-weight:400; }
 .tap-again { position:absolute; right:8px; top:8px; width:38px; height:38px; border:0; border-radius:50%; background:rgba(2,10,30,.72); color:var(--white); cursor:pointer; z-index:2; }
 .ending-content .big-heart { color:var(--yellow); font-size:4.5rem; margin:0 0 22px; animation:pulse 1.7s infinite; }
 [hidden] { display:none!important; }
+
+/* Clean gallery: media + caption only */
+.photo-slide { padding:calc(58px + env(safe-area-inset-top)) 14px calc(62px + env(safe-area-inset-bottom)); }
+.photo-slide .memory-shell { width:100%; height:100%; max-width:560px; display:grid; place-items:center; }
+.photo-slide .media-view { width:100%; height:100%; max-height:100%; display:grid; grid-template-rows:minmax(0,1fr) auto; gap:14px; padding:0; background:transparent; border:0; box-shadow:none; }
+.photo-slide .media-box { min-height:0; display:grid; place-items:center; }
+.photo-slide .media-box img,.photo-slide .media-box video { max-width:100%; max-height:calc(100svh - 190px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); border:3px solid rgba(255,255,255,.9); box-shadow:6px 6px 0 rgba(21,63,115,.24); background:#153f73; }
+.photo-slide .caption-row { display:block; margin:0; padding:0 8px; background:transparent; border:0; box-shadow:none; text-align:center; }
+.caption-copy { display:grid; gap:6px; }
+.caption-date { color:#fff; font:600 .86rem "Pixelify Sans",monospace; text-shadow:2px 2px 0 rgba(21,63,115,.75); }
+.photo-slide .caption-text { margin:0; color:#fff; font:600 1.12rem/1.25 "Pixelify Sans",monospace; text-shadow:2px 2px 0 rgba(21,63,115,.8); }
+@media (max-width:380px) { .photo-slide .caption-text { font-size:1rem; } .photo-slide .media-box img,.photo-slide .media-box video { max-height:calc(100svh - 180px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); } }
 @keyframes appear { from { opacity:0; transform:scale(.96); } }
 @keyframes twinkle { 50% { transform:scale(1.25) rotate(10deg); opacity:.65; } }
 @keyframes float { 50% { transform:translateX(8px); } }

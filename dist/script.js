@@ -45,24 +45,9 @@ function mediaPath(index) {
 
 orderedPhrases.forEach((text, index) => {
   const content = memoryContent(index);
-  const phraseSlide = document.createElement("section");
-  phraseSlide.className = "slide memory-slide phrase-slide";
-  phraseSlide.dataset.panel = index * 2;
-  phraseSlide.dataset.memory = index;
-  phraseSlide.dataset.kind = "frase";
-  phraseSlide.innerHTML = `
-    <div class="memory-shell">
-      <div class="prompt">
-        <span class="number">lembrança ${String(index + 1).padStart(2, "0")}</span>
-        <time class="memory-date">uma data especial</time>
-        <p class="phrase">${text}</p>
-        <p class="continue-hint">arraste para ver <span>→</span></p>
-      </div>
-    </div>`;
-
   const mediaSlide = document.createElement("section");
   mediaSlide.className = "slide memory-slide photo-slide";
-  mediaSlide.dataset.panel = index * 2 + 1;
+  mediaSlide.dataset.panel = index;
   mediaSlide.dataset.memory = index;
   mediaSlide.dataset.kind = videoIndexes.has(index) ? "vídeo" : "foto";
   mediaSlide.innerHTML = `
@@ -71,14 +56,16 @@ orderedPhrases.forEach((text, index) => {
         <div class="media-box">
         </div>
         <div class="caption-row">
-          <p class="caption">${orderedCaptions[index]}</p>
-          <button class="next-arrow" type="button" aria-label="Próxima lembrança">→</button>
+          <div class="caption-copy">
+            <time class="caption-date">uma data especial</time>
+            <p class="caption caption-text">${text}</p>
+          </div>
         </div>
       </div>
     </div>`;
-  container.append(phraseSlide, mediaSlide);
-  phraseSlide.querySelector(".memory-date").textContent = content.date || "uma data especial";
-  phraseSlide.querySelector(".phrase").textContent = content.text;
+  container.append(mediaSlide);
+  mediaSlide.querySelector(".caption-date").textContent = content.date || "uma data especial";
+  mediaSlide.querySelector(".caption-text").textContent = content.text;
 
   const media = document.createElement(videoIndexes.has(index) ? "video" : "img");
   media.src = mediaPath(index);
@@ -92,18 +79,13 @@ orderedPhrases.forEach((text, index) => {
     media.loading = "lazy";
   }
   mediaSlide.querySelector(".media-box").append(media);
-
-  mediaSlide.querySelector(".next-arrow").addEventListener("click", () => {
-    mediaSlide.querySelector("video")?.pause();
-    (mediaSlide.nextElementSibling || document.querySelector("#ending")).scrollIntoView({ behavior:"smooth" });
-  });
 });
 
 function refreshMemory(index) {
-  const slide = document.querySelector(`.phrase-slide[data-memory="${index}"]`);
+  const slide = document.querySelector(`.photo-slide[data-memory="${index}"]`);
   const content = memoryContent(index);
-  slide.querySelector(".memory-date").textContent = content.date || "uma data especial";
-  slide.querySelector(".phrase").textContent = content.text;
+  slide.querySelector(".caption-date").textContent = content.date || "uma data especial";
+  slide.querySelector(".caption-text").textContent = content.text;
 }
 
 const editorTools = document.querySelector("#editorTools");
@@ -140,7 +122,7 @@ document.querySelector("#exportContent").addEventListener("click", () => {
 
 function updateDots(current) {
   const radius = 4;
-  const panelCount = orderedPhrases.length * 2;
+  const panelCount = orderedPhrases.length;
   const start = Math.max(0, Math.min(current - radius, panelCount - (radius * 2 + 1)));
   const end = Math.min(panelCount, start + radius * 2 + 1);
   dotNav.replaceChildren();
@@ -148,9 +130,8 @@ function updateDots(current) {
     const dot = document.createElement("button");
     dot.type = "button";
     dot.className = "dot";
-    const memory = Math.floor(index / 2) + 1;
-    const kind = index % 2 === 0 ? "frase" : "mídia";
-    dot.setAttribute("aria-label", `Ir para ${kind} da lembrança ${memory}`);
+    const memory = index + 1;
+    dot.setAttribute("aria-label", `Ir para lembrança ${memory}`);
     if (index === current) {
       dot.classList.add("active");
       dot.setAttribute("aria-current", "true");
@@ -172,7 +153,7 @@ const observer = new IntersectionObserver(entries => {
     const panel = Number(entry.target.dataset.panel);
     const memory = Number(entry.target.dataset.memory);
     if (Number.isInteger(memory)) activeMemory = memory;
-    counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} • ${entry.target.dataset.kind}` : entry.target.classList.contains("ending-slide") ? `♡ / ${orderedPhrases.length}` : `00 / ${orderedPhrases.length}`;
+    counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} / ${orderedPhrases.length}` : entry.target.classList.contains("ending-slide") ? `♡ / ${orderedPhrases.length}` : `00 / ${orderedPhrases.length}`;
     if (Number.isInteger(panel)) {
       dotNav.hidden = false;
       updateDots(panel);
