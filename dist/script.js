@@ -166,17 +166,29 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll(".slide").forEach(slide => observer.observe(slide));
 const soundtrack = document.querySelector("#soundtrack");
 const musicToggle = document.querySelector("#musicToggle");
-let musicAvailable = false;
-soundtrack.addEventListener("canplay", () => { musicAvailable = true; musicToggle.hidden = false; });
-soundtrack.addEventListener("error", () => { musicAvailable = false; musicToggle.hidden = true; });
-function startMusic() {
-  if (!musicAvailable) return;
+musicToggle.hidden = false;
+soundtrack.addEventListener("error", () => {
+  musicToggle.textContent = "!";
+  musicToggle.setAttribute("aria-label", "Não foi possível carregar a música");
+});
+async function startMusic() {
   soundtrack.volume = .28;
-  soundtrack.play().catch(() => {});
+  try {
+    await soundtrack.play();
+    musicToggle.textContent = "♫";
+    musicToggle.setAttribute("aria-label", "Pausar música");
+  } catch {
+    musicToggle.textContent = "♪";
+    musicToggle.setAttribute("aria-label", "Toque aqui para iniciar a música");
+  }
 }
 musicToggle.addEventListener("click", () => {
-  if (soundtrack.paused) { startMusic(); musicToggle.textContent = "♫"; }
-  else { soundtrack.pause(); musicToggle.textContent = "♪"; }
+  if (soundtrack.paused) startMusic();
+  else {
+    soundtrack.pause();
+    musicToggle.textContent = "♪";
+    musicToggle.setAttribute("aria-label", "Tocar música");
+  }
 });
 document.querySelector("#startButton").addEventListener("click", () => {
   startMusic();
