@@ -47,7 +47,7 @@ const memories = [
   {memory:35,date:"18 de outubro",text:"Te amo."},
   {memory:47,date:"18 de outubro",text:"O tão sonhado piquenique virou realidade."},
   {memory:48,date:"18 de outubro",text:"Lutando pela democracia. Você me fez tomar uma posição na marra, kkkkk."},
-  {memory:49,date:"18 de outubro",text:""}
+  {memory:49,date:"18 de outubro",text:"acho que esse nem precisa de legenda né?"}
 ];
 const carousel = document.querySelector("#carousel");
 const container = document.querySelector("#memorySlides");
