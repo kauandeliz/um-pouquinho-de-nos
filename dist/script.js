@@ -25,6 +25,18 @@ const carousel = document.querySelector("#carousel");
 const container = document.querySelector("#memorySlides");
 const counter = document.querySelector("#counter");
 const dotNav = document.querySelector("#dotNav");
+const editorMode = new URLSearchParams(location.search).get("editar") === "1";
+const storageKey = "nossa-historia-conteudo-v1";
+let savedContent = {};
+try { savedContent = JSON.parse(localStorage.getItem(storageKey) || "{}"); } catch { savedContent = {}; }
+let activeMemory = 0;
+
+function memoryContent(index) {
+  return {
+    date: savedContent[index]?.date || "",
+    text: savedContent[index]?.text || orderedPhrases[index]
+  };
+}
 
 function mediaPath(index) {
   const extension = videoIndexes.has(index) ? "mp4" : "jpg";
@@ -32,6 +44,7 @@ function mediaPath(index) {
 }
 
 orderedPhrases.forEach((text, index) => {
+  const content = memoryContent(index);
   const phraseSlide = document.createElement("section");
   phraseSlide.className = "slide memory-slide phrase-slide";
   phraseSlide.dataset.panel = index * 2;
@@ -41,6 +54,7 @@ orderedPhrases.forEach((text, index) => {
     <div class="memory-shell">
       <div class="prompt">
         <span class="number">lembrança ${String(index + 1).padStart(2, "0")}</span>
+        <time class="memory-date">uma data especial</time>
         <p class="phrase">${text}</p>
         <p class="continue-hint">arraste para ver <span>→</span></p>
       </div>
@@ -63,6 +77,8 @@ orderedPhrases.forEach((text, index) => {
       </div>
     </div>`;
   container.append(phraseSlide, mediaSlide);
+  phraseSlide.querySelector(".memory-date").textContent = content.date || "uma data especial";
+  phraseSlide.querySelector(".phrase").textContent = content.text;
 
   const media = document.createElement(videoIndexes.has(index) ? "video" : "img");
   media.src = mediaPath(index);
@@ -81,6 +97,45 @@ orderedPhrases.forEach((text, index) => {
     mediaSlide.querySelector("video")?.pause();
     (mediaSlide.nextElementSibling || document.querySelector("#ending")).scrollIntoView({ behavior:"smooth" });
   });
+});
+
+function refreshMemory(index) {
+  const slide = document.querySelector(`.phrase-slide[data-memory="${index}"]`);
+  const content = memoryContent(index);
+  slide.querySelector(".memory-date").textContent = content.date || "uma data especial";
+  slide.querySelector(".phrase").textContent = content.text;
+}
+
+const editorTools = document.querySelector("#editorTools");
+const memoryEditor = document.querySelector("#memoryEditor");
+const dateInput = document.querySelector("#dateInput");
+const textInput = document.querySelector("#textInput");
+if (editorMode) editorTools.hidden = false;
+
+document.querySelector("#editCurrent").addEventListener("click", () => {
+  const content = memoryContent(activeMemory);
+  document.querySelector("#editorKicker").textContent = `memória ${String(activeMemory + 1).padStart(2,"0")}`;
+  dateInput.value = content.date;
+  textInput.value = content.text;
+  memoryEditor.showModal();
+});
+
+document.querySelector("#saveMemory").addEventListener("click", event => {
+  event.preventDefault();
+  savedContent[activeMemory] = { date: dateInput.value.trim(), text: textInput.value.trim() || orderedPhrases[activeMemory] };
+  localStorage.setItem(storageKey, JSON.stringify(savedContent));
+  refreshMemory(activeMemory);
+  memoryEditor.close();
+});
+
+document.querySelector("#exportContent").addEventListener("click", () => {
+  const complete = orderedPhrases.map((_, index) => ({ memory: index + 1, ...memoryContent(index) }));
+  const blob = new Blob([JSON.stringify(complete, null, 2)], { type:"application/json" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "nossas-memorias.json";
+  link.click();
+  URL.revokeObjectURL(link.href);
 });
 
 function updateDots(current) {
@@ -116,6 +171,7 @@ const observer = new IntersectionObserver(entries => {
     });
     const panel = Number(entry.target.dataset.panel);
     const memory = Number(entry.target.dataset.memory);
+    if (Number.isInteger(memory)) activeMemory = memory;
     counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} • ${entry.target.dataset.kind}` : entry.target.classList.contains("ending-slide") ? `♡ / ${orderedPhrases.length}` : `00 / ${orderedPhrases.length}`;
     if (Number.isInteger(panel)) {
       dotNav.hidden = false;
@@ -127,5 +183,22 @@ const observer = new IntersectionObserver(entries => {
 }, { root:carousel, threshold:[.7] });
 
 document.querySelectorAll(".slide").forEach(slide => observer.observe(slide));
-document.querySelector("#startButton").addEventListener("click", () => document.querySelector(".memory-slide").scrollIntoView({ behavior:"smooth" }));
+const soundtrack = document.querySelector("#soundtrack");
+const musicToggle = document.querySelector("#musicToggle");
+let musicAvailable = false;
+soundtrack.addEventListener("canplay", () => { musicAvailable = true; musicToggle.hidden = false; });
+soundtrack.addEventListener("error", () => { musicAvailable = false; musicToggle.hidden = true; });
+function startMusic() {
+  if (!musicAvailable) return;
+  soundtrack.volume = .28;
+  soundtrack.play().catch(() => {});
+}
+musicToggle.addEventListener("click", () => {
+  if (soundtrack.paused) { startMusic(); musicToggle.textContent = "♫"; }
+  else { soundtrack.pause(); musicToggle.textContent = "♪"; }
+});
+document.querySelector("#startButton").addEventListener("click", () => {
+  startMusic();
+  document.querySelector(".memory-slide").scrollIntoView({ behavior:"smooth" });
+});
 document.querySelector("#restartButton").addEventListener("click", () => carousel.firstElementChild.scrollIntoView({ behavior:"smooth" }));

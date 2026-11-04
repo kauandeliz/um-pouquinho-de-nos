@@ -173,3 +173,18 @@ h1,h2,h1 em,h2 em { color:#fff; text-shadow:4px 4px 0 var(--deep); }
 .pixel-badge img { width:76px; image-rendering:pixelated; }
 @keyframes asset-float { 0%,100% { transform:translateY(0) rotate(-3deg); } 50% { transform:translateY(-10px) rotate(3deg); } }
 @media (max-width:380px) { .seahorse { width:72px; } .reef-background { width:88vw; opacity:.26; } .asset-star { opacity:.8; } }
+
+.memory-date { display:block; width:max-content; max-width:100%; margin:0 auto 18px; padding:7px 10px; color:#fff; background:var(--deep); box-shadow:3px 3px 0 var(--navy); font-family:"Pixelify Sans",monospace; font-size:.88rem; line-height:1.2; }
+.music-toggle { position:fixed; z-index:40; right:16px; bottom:calc(66px + env(safe-area-inset-bottom)); width:44px; height:44px; border:3px solid #fff; background:var(--pink); color:#fff; box-shadow:0 0 0 3px #a94e78,4px 4px 0 rgba(21,63,115,.3); font:1.35rem "Pixelify Sans",monospace; cursor:pointer; }
+.editor-tools { position:fixed; z-index:50; left:50%; top:calc(50px + env(safe-area-inset-top)); transform:translateX(-50%); display:flex; gap:8px; width:max-content; }
+.editor-tools button { border:3px solid #fff; background:var(--navy); color:#fff; padding:8px 10px; box-shadow:3px 3px 0 rgba(21,63,115,.35); font:600 .82rem "Pixelify Sans",monospace; cursor:pointer; }
+.memory-editor { width:min(calc(100% - 28px),520px); border:4px solid #fff; padding:0; color:var(--navy); background:#eefcff; box-shadow:0 0 0 4px var(--deep),10px 10px 0 rgba(21,63,115,.38); }
+.memory-editor::backdrop { background:rgba(10,42,82,.72); }
+.memory-editor form { display:grid; gap:18px; padding:24px 18px 20px; }
+.editor-kicker { margin:0; color:#fff; background:var(--pink); width:max-content; padding:7px 10px; box-shadow:3px 3px 0 #a94e78; font:600 .9rem "Pixelify Sans",monospace; }
+.memory-editor label { display:grid; gap:7px; font:600 1rem "Pixelify Sans",monospace; }
+.memory-editor input,.memory-editor textarea { width:100%; border:3px solid var(--deep); border-radius:0; padding:11px; color:var(--navy); background:#fff; font:1rem/1.35 "Pixelify Sans",monospace; resize:vertical; }
+.editor-actions { display:flex; justify-content:flex-end; gap:10px; }
+.editor-actions button { border:3px solid var(--deep); background:#d9f4ff; color:var(--navy); padding:9px 12px; font:600 .9rem "Pixelify Sans",monospace; cursor:pointer; }
+.editor-actions .save-memory { background:var(--pink); border-color:#a94e78; color:#fff; }
+[hidden] { display:none!important; }

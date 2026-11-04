@@ -47,6 +47,20 @@
   </main>
   <div class="topbar"><span>nós dois ♡</span><span id="counter">00 / 49</span></div>
   <nav class="dot-nav" id="dotNav" aria-label="Posição no carrossel" hidden></nav>
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Pausar ou tocar música" hidden>♪</button>
+  <div class="editor-tools" id="editorTools" hidden>
+    <button id="editCurrent" type="button">editar memória</button>
+    <button id="exportContent" type="button">exportar textos</button>
+  </div>
+  <dialog class="memory-editor" id="memoryEditor">
+    <form method="dialog" id="editorForm">
+      <p class="editor-kicker" id="editorKicker">memória 01</p>
+      <label>Data<input id="dateInput" type="text" maxlength="40" placeholder="ex.: 14 de fevereiro de 2024"></label>
+      <label>Seu texto<textarea id="textInput" rows="6" maxlength="600" placeholder="Escreva aqui o que essa lembrança significa..."></textarea></label>
+      <div class="editor-actions"><button value="cancel">cancelar</button><button class="save-memory" id="saveMemory" value="default">salvar</button></div>
+    </form>
+  </dialog>
+  <audio id="soundtrack" loop preload="auto" src="assets/sparks-instrumental.mp3"></audio>
   <script src="script.js"></script>
 </body>
 </html>
