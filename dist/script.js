@@ -15,7 +15,12 @@ const captions = [
   "o começo de tantos momentos", "a vista e a melhor companhia", "um carinho guardado", "um dos nossos sabores", "noite nossa", "nosso cinema", "programinha perfeito", "manhã com você", "sempre lado a lado", "aconchego", "do nosso jeitinho", "pertinho é melhor", "nós em movimento", "pôr do sol nosso", "tarde boa", "dividindo tudo", "risadas que ficam", "meu sorriso favorito", "a nós", "colecionando momentos", "mais uma mesa, mais uma memória", "cuidado em detalhes", "só nós dois", "seu jeitinho", "preguiça boa", "um pouquinho do seu mundo", "carinho que vira presente", "fofura em dobro", "te amo", "jantar nosso", "detalhes que dizem muito", "você sempre comigo", "rotina com afeto", "sem pose, só amor", "meu lugar de paz", "quentinho por dentro", "uma tradição nossa", "tesouros nossos", "um beijo e nada mais", "você me conhece", "descansar com você", "tantos pedacinhos", "uma certeza bonita", "celebrando a gente", "feito com carinho", "aventuras com você", "meu lugar é aqui", "parte da nossa história", "sempre nós"
 ];
 
-const videoIndexes = new Set([0,1,2,8,9,10,11,12,13,16,33,34,42,48]);
+// Ordem visual do ZIP, de cima para baixo. Os índices apontam para a
+// posição original de cada mídia para manter sua frase e legenda juntas.
+const zipOrder = [19,20,21,22,23,18,25,26,27,28,24,30,31,32,29,36,37,38,39,35,41,40,44,45,46,47,43,4,5,3,7,6,15,14,17,33,34,42,48,0,1,2,8,9,10,11,13,12,16];
+const orderedPhrases = zipOrder.map(index => phrases[index]);
+const orderedCaptions = zipOrder.map(index => captions[index]);
+const videoIndexes = new Set([35,36,37,38,39,40,41,42,43,44,45,46,47,48]);
 const carousel = document.querySelector("#carousel");
 const container = document.querySelector("#memorySlides");
 const counter = document.querySelector("#counter");
@@ -26,7 +31,7 @@ function mediaPath(index) {
   return `media/momento-${String(index + 1).padStart(2, "0")}.${extension}`;
 }
 
-phrases.forEach((text, index) => {
+orderedPhrases.forEach((text, index) => {
   const phraseSlide = document.createElement("section");
   phraseSlide.className = "slide memory-slide phrase-slide";
   phraseSlide.dataset.panel = index * 2;
@@ -52,7 +57,7 @@ phrases.forEach((text, index) => {
         <div class="media-box">
         </div>
         <div class="caption-row">
-          <p class="caption">${captions[index]}</p>
+          <p class="caption">${orderedCaptions[index]}</p>
           <button class="next-arrow" type="button" aria-label="Próxima lembrança">→</button>
         </div>
       </div>
@@ -80,7 +85,7 @@ phrases.forEach((text, index) => {
 
 function updateDots(current) {
   const radius = 4;
-  const panelCount = phrases.length * 2;
+  const panelCount = orderedPhrases.length * 2;
   const start = Math.max(0, Math.min(current - radius, panelCount - (radius * 2 + 1)));
   const end = Math.min(panelCount, start + radius * 2 + 1);
   dotNav.replaceChildren();
@@ -111,7 +116,7 @@ const observer = new IntersectionObserver(entries => {
     });
     const panel = Number(entry.target.dataset.panel);
     const memory = Number(entry.target.dataset.memory);
-    counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} • ${entry.target.dataset.kind}` : entry.target.classList.contains("ending-slide") ? `♡ / ${phrases.length}` : `00 / ${phrases.length}`;
+    counter.textContent = Number.isInteger(panel) ? `${String(memory + 1).padStart(2,"0")} • ${entry.target.dataset.kind}` : entry.target.classList.contains("ending-slide") ? `♡ / ${orderedPhrases.length}` : `00 / ${orderedPhrases.length}`;
     if (Number.isInteger(panel)) {
       dotNav.hidden = false;
       updateDots(panel);
