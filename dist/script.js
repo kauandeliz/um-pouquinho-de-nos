@@ -204,15 +204,19 @@ async function startMusic() {
   soundtrack.volume = .28;
   try {
     await soundtrack.play();
+    carousel.classList.remove("is-locked");
+    document.querySelector(".swipe-hint span").textContent = "arraste pro lado";
     musicToggle.hidden = false;
     musicToggle.textContent = "♫";
     musicToggle.setAttribute("aria-label", "Pausar música");
     musicToggle.setAttribute("aria-pressed", "true");
+    return true;
   } catch {
     musicToggle.hidden = false;
     musicToggle.textContent = "♪";
     musicToggle.setAttribute("aria-label", "Toque aqui para iniciar a música");
     musicToggle.setAttribute("aria-pressed", "false");
+    return false;
   }
 }
 musicToggle.addEventListener("click", () => {
@@ -225,6 +229,6 @@ musicToggle.addEventListener("click", () => {
   }
 });
 document.querySelector("#startButton").addEventListener("click", async () => {
-  await startMusic();
+  if (!await startMusic()) return;
   document.querySelector(".memory-slide").scrollIntoView({ behavior:"smooth" });
 });
