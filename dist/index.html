@@ -29,7 +29,7 @@
         <p class="eyebrow">uma lembrança de cada vez</p>
         <h1 id="title">um pouquinho de nós<br><em>pra você lembrar</em></h1>
         <p class="intro">Fiz esse cantinho pra guardar alguns dos momentos que fizeram — e ainda fazem — a nossa história tão bonita.</p>
-        <button class="start-button" id="startButton" type="button">começar nossa história <span>↓</span></button>
+        <button class="start-button sound-start" id="startButton" type="button"><span aria-hidden="true">♪</span> ligar o som e começar <span>→</span></button>
       </div>
       <div class="swipe-hint"><span>arraste pro lado</span><b>›</b></div>
     </section>
@@ -60,7 +60,7 @@
       <div class="editor-actions"><button value="cancel">cancelar</button><button class="save-memory" id="saveMemory" value="default">salvar</button></div>
     </form>
   </dialog>
-  <audio id="soundtrack" autoplay loop preload="auto" src="assets/background-track.mp3"></audio>
+  <audio id="soundtrack" loop preload="auto" src="assets/background-track.mp3"></audio>
   <script src="script.js"></script>
 </body>
 </html>

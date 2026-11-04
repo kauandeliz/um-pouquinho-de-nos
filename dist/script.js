@@ -166,8 +166,8 @@ const observer = new IntersectionObserver(entries => {
 document.querySelectorAll(".slide").forEach(slide => observer.observe(slide));
 const soundtrack = document.querySelector("#soundtrack");
 const musicToggle = document.querySelector("#musicToggle");
-musicToggle.hidden = false;
 soundtrack.addEventListener("error", () => {
+  musicToggle.hidden = false;
   musicToggle.textContent = "!";
   musicToggle.setAttribute("aria-label", "Não foi possível carregar a música");
 });
@@ -175,6 +175,7 @@ async function startMusic() {
   soundtrack.volume = .28;
   try {
     await soundtrack.play();
+    musicToggle.hidden = false;
     musicToggle.textContent = "♫";
     musicToggle.setAttribute("aria-label", "Pausar música");
   } catch {
@@ -190,11 +191,8 @@ musicToggle.addEventListener("click", () => {
     musicToggle.setAttribute("aria-label", "Tocar música");
   }
 });
-// Tenta iniciar já na abertura. Em celulares que bloqueiam autoplay com som,
-// o clique no botão inicial abaixo libera a reprodução imediatamente.
-startMusic();
-document.querySelector("#startButton").addEventListener("click", () => {
-  startMusic();
+document.querySelector("#startButton").addEventListener("click", async () => {
+  await startMusic();
   document.querySelector(".memory-slide").scrollIntoView({ behavior:"smooth" });
 });
 document.querySelector("#restartButton").addEventListener("click", () => carousel.firstElementChild.scrollIntoView({ behavior:"smooth" }));
