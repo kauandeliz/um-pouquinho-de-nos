@@ -190,6 +190,9 @@ musicToggle.addEventListener("click", () => {
     musicToggle.setAttribute("aria-label", "Tocar música");
   }
 });
+// Tenta iniciar já na abertura. Em celulares que bloqueiam autoplay com som,
+// o clique no botão inicial abaixo libera a reprodução imediatamente.
+startMusic();
 document.querySelector("#startButton").addEventListener("click", () => {
   startMusic();
   document.querySelector(".memory-slide").scrollIntoView({ behavior:"smooth" });
