@@ -41,7 +41,7 @@ const memories = [
   {memory:43,date:"10 de setembro",text:"Matando aula para tomar um cafezinho. Nossos melhores dates."},
   {memory:44,date:"12 de setembro",text:"Acho que nossas almas combinam também."},
   {memory:45,date:"12 de setembro",text:"Programas caseiros também são ótimos com você. E, modéstia à parte, eu cozinho bem, kkkkk."},
-  {memory:46,date:"14 de setembro",text:"Bobocas."},
+  {memory:46,date:"02 de novembro",text:"Bobocas."},
   {memory:33,date:"18 de outubro",text:"O tão sonhado piquenique virou realidade."},
   {memory:34,date:"18 de outubro",text:"O tão sonhado piquenique virou realidade."},
   {memory:35,date:"18 de outubro",text:"Te amo."},
