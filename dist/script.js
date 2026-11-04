@@ -207,9 +207,12 @@ async function startMusic() {
     musicToggle.hidden = false;
     musicToggle.textContent = "♫";
     musicToggle.setAttribute("aria-label", "Pausar música");
+    musicToggle.setAttribute("aria-pressed", "true");
   } catch {
+    musicToggle.hidden = false;
     musicToggle.textContent = "♪";
     musicToggle.setAttribute("aria-label", "Toque aqui para iniciar a música");
+    musicToggle.setAttribute("aria-pressed", "false");
   }
 }
 musicToggle.addEventListener("click", () => {
@@ -218,6 +221,7 @@ musicToggle.addEventListener("click", () => {
     soundtrack.pause();
     musicToggle.textContent = "♪";
     musicToggle.setAttribute("aria-label", "Tocar música");
+    musicToggle.setAttribute("aria-pressed", "false");
   }
 });
 document.querySelector("#startButton").addEventListener("click", async () => {
