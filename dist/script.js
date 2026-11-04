@@ -6,7 +6,7 @@ const memories = [
   {memory:4,date:"7 de março",text:"Sempre disse que amo o seu cheiro, né?"},
   {memory:5,date:"7 de março",text:"Ficamos engraçados nessa foto. Tô com saudades."},
   {memory:11,date:"8 de março",text:"Nós bem fofos combinandinho."},
-  {memory:7,date:"2 de abril",text:"Recém-namorados, uhull! Lembro que fiquei muito feliz em poder dizer pra todo mundo que estava namorando você. Precisamos terminar de ver Nana."},
+  {memory:7,date:"8 de março",text:"Recém-namorados, uhull! Lembro que fiquei muito feliz em poder dizer pra todo mundo que estava namorando você. Precisamos terminar de ver Nana."},
   {memory:8,date:"2 de abril",text:"Você sempre acerta nos presentes. Ninguém nunca prestou tanta atenção em mim."},
   {memory:9,date:"4 de abril",text:"Os dois amores da minha vida."},
   {memory:10,date:"5 de abril",text:"Muito chocolate na Páscoa, quando você ainda não tinha intolerância à lactose. Droga, o destino não deixou eu te mimar com chocolates pra sempre :("},
